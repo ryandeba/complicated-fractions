@@ -1,13 +1,12 @@
 (function() {
+  const primes = [
+    2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,
+    107,109,113,127,131,137,139,149,151,157,163,167,173,179,181,191,193,197,199
+  ];
+
   Vue.component("fraction", {
     template: `
       <div class="fraction">
-        <!--
-        <div class="fraction__number">
-            {{ number }}
-        </div>
-        -->
-
         <div>
           <div class="fraction__numerator">
             <template v-if="typeof calculatedNumerator == 'number'">
@@ -33,9 +32,6 @@
     `,
 
     props: {
-      number: {
-        default: 0
-      },
       numerator: {},
       denominator: {}
     },
@@ -75,21 +71,20 @@
             return;
           }
 
-          if (self.denominator > 2) {
-            var divisor = self.denominator / 2;
+          if (!primes.find(function(prime) { return prime == self.denominator; })) {
+            var primeFactor = primes.find(function(prime) {
+              return Number.isInteger(self.denominator / prime);
+            });
 
-            if (Number.isInteger(self.denominator / 2)) {
-              self.calculatedDenominator = self.denominator / divisor;
-            } else {
-              self.calculatedDenominator = {
-                numerator: self.denominator,
-                denominator: 2
-              }
+            if (!primeFactor) {
+              return;
             }
+
+            self.calculatedDenominator = primeFactor;
 
             self.calculatedNumerator = {
               numerator: self.numerator,
-              denominator: divisor
+              denominator: self.denominator / primeFactor
             };
           }
         }
