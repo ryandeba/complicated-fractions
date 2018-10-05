@@ -71,6 +71,12 @@
             return;
           }
 
+          if (self.numerator == self.denominator) {
+            self.calculatedNumerator = 1;
+            self.calculatedDenominator = 1;
+            return;
+          }
+
           if (!primes.find(function(prime) { return prime == self.denominator; })) {
             var primeFactor = primes.find(function(prime) {
               return Number.isInteger(self.denominator / prime);
