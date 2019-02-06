@@ -63,8 +63,8 @@
 
             <hr style="margin: 10px 0;">
 
-            <div v-if="numerator == 2 && denominator == 3" style="text-align: center; font-style: italic;">
-              Unsanctioned!
+            <div v-if="message" style="text-align: center; font-style: italic;">
+              {{ message }}
             </div>
 
             <div class="fraction-container" :style="{'font-size': zoom + 'px'}">
@@ -84,6 +84,20 @@
         numerator: 3,
         denominator: 8,
         zoom: 600
+      },
+
+      computed: {
+        message: function() {
+          var message = "";
+
+          if (this.numerator == 2 && this.denominator == 3) {
+            message = "Unsanctioned!";
+          } else if (this.numerator == 120 && this.denominator == 120) {
+            message = "Impossible!";
+          }
+
+          return message;
+        }
       },
 
       watch: {
