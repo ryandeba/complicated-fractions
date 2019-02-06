@@ -63,6 +63,10 @@
 
             <hr style="margin: 10px 0;">
 
+            <div v-if="numerator == 2 && denominator == 3" style="text-align: center; font-style: italic;">
+              Unsanctioned!
+            </div>
+
             <div class="fraction-container" :style="{'font-size': zoom + 'px'}">
               <fraction v-bind="$data"></fraction>
             </div>
@@ -108,7 +112,7 @@
 
           if (values.length == 2) {
             this.numerator = values[0];
-            //this.denominator = values[1];
+            this.denominator = values[1];
           }
         }
       }
