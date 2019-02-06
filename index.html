@@ -61,7 +61,7 @@
               :step="10"
             ></v-slider>
 
-            <hr style="margin: 10px;">
+            <hr style="margin: 10px 0;">
 
             <div class="fraction-container" :style="{'font-size': zoom + 'px'}">
               <fraction v-bind="$data"></fraction>
@@ -92,6 +92,23 @@
         denominator: function() {
           if (typeof this.denominator != 'number') {
             this.denominator = parseInt(this.denominator) || 0;
+          }
+        }
+      },
+
+      mounted: function() {
+        this.setValuesFromURL();
+      },
+
+      methods: {
+        setValuesFromURL: function() {
+          var queryString = location.search.substr(1);
+
+          var values = queryString.split("/");
+
+          if (values.length == 2) {
+            this.numerator = values[0];
+            //this.denominator = values[1];
           }
         }
       }
