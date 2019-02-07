@@ -48,29 +48,45 @@
     <div id="app" v-cloak>
       <v-app>
         <v-content>
-          <v-container>
-            <v-text-field type="number" v-model="numerator" label="Numerator"></v-text-field>
+          <v-form>
+            <v-container>
+              <v-layout row wrap>
+                <v-flex xs4>
+                  <v-text-field type="number" v-model="numerator" label="Numerator"></v-text-field>
+                </v-flex>
 
-            <v-text-field type="number" v-model="denominator" label="Denominator"></v-text-field>
+                <v-flex xs4>
+                  <v-text-field type="number" v-model="denominator" label="Denominator"></v-text-field>
+                </v-flex>
 
-            <v-slider
-              v-model="zoom"
-              label="Zoom"
-              :max="3000"
-              :min="300"
-              :step="10"
-            ></v-slider>
+                <v-flex xs4>
+                  <v-slider
+                    v-model="zoom"
+                    label="Zoom"
+                    :max="3000"
+                    :min="100"
+                    :step="10"
+                  ></v-slider>
+                </v-flex>
 
-            <hr style="margin: 10px 0;">
+                <v-flex xs12>
+                  <hr style="margin: 10px 0;">
+                </v-flex>
 
-            <div v-if="message" style="text-align: center; font-style: italic;">
-              {{ message }}
-            </div>
+                <v-flex xs12 v-if="message">
+                  <div style="text-align: center; font-style: italic;">
+                    {{ message }}
+                  </div>
+                </v-flex>
 
-            <div class="fraction-container" :style="{'font-size': zoom + 'px'}">
-              <fraction v-bind="values"></fraction>
-            </div>
-          </v-container>
+                <v-flex xs12>
+                  <div class="fraction-container" :style="{'font-size': zoom + 'px'}">
+                    <fraction v-bind="values"></fraction>
+                  </div>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-form>
         </v-content>
       </v-app>
     </div>
