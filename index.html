@@ -49,9 +49,9 @@
       <v-app>
         <v-content>
           <v-container>
-            <v-text-field v-model="numerator" label="Numerator"></v-text-field>
+            <v-text-field type="number" v-model="numerator" label="Numerator"></v-text-field>
 
-            <v-text-field v-model="denominator" label="Denominator"></v-text-field>
+            <v-text-field type="number" v-model="denominator" label="Denominator"></v-text-field>
 
             <v-slider
               v-model="zoom"
@@ -68,7 +68,7 @@
             </div>
 
             <div class="fraction-container" :style="{'font-size': zoom + 'px'}">
-              <fraction v-bind="$data"></fraction>
+              <fraction v-bind="values"></fraction>
             </div>
           </v-container>
         </v-content>
@@ -97,19 +97,36 @@
           }
 
           return message;
+        },
+
+        values: function() {
+          var result = {
+            numerator: 0,
+            denominator: 0
+          };
+
+          if (typeof this.numerator == 'number') {
+            result.numerator = this.numerator;
+          }
+
+          if (typeof this.denominator == 'number') {
+            result.denominator = this.denominator;
+          }
+
+          return result;
         }
       },
 
       watch: {
         numerator: function() {
           if (typeof this.numerator != 'number') {
-            this.numerator = parseInt(this.numerator) || 0;
+            this.numerator = parseInt(this.numerator) || "";
           }
         },
 
         denominator: function() {
           if (typeof this.denominator != 'number') {
-            this.denominator = parseInt(this.denominator) || 0;
+            this.denominator = parseInt(this.denominator) || "";
           }
         }
       },
